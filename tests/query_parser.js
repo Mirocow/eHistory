@@ -6,7 +6,7 @@ describe('query parser', function () {
       var options = parseQuery('foo');
       expect(options).to.eql({
         settings: {
-          startTime: null
+          from: null
         , endTime: null
         , text: 'foo'
         }
@@ -18,7 +18,7 @@ describe('query parser', function () {
       var options = parseQuery('foo   + bar');
       expect(options).to.eql({
         settings: {
-          startTime: null
+          from: null
         , endTime: null
         , text: 'foo + bar'
         }
@@ -33,15 +33,15 @@ describe('query parser', function () {
     describe('simple filtes', function () {
 
       it('should handle title filter', function () {
-        var options = parseQuery('intitle:wat');
+        var options = parseQuery('title:wat');
         expect(options).to.eql({
           settings: {
-            startTime: null
+            from: null
           , endTime: null
           , text: 'wat'
           }
         , filters: {
-            intitle: 'wat'
+            title: 'wat'
           }
         });
       });
@@ -50,7 +50,7 @@ describe('query parser', function () {
         var options = parseQuery('site:google.com');
         expect(options).to.eql({
           settings: {
-            startTime: null
+            from: null
           , endTime: null
           , text: 'google.com'
           }
@@ -61,24 +61,24 @@ describe('query parser', function () {
       });
 
       it('should handle url filter', function () {
-        var options = parseQuery('inurl:foobar');
+        var options = parseQuery('url:foobar');
         expect(options).to.eql({
           settings: {
-            startTime: null
+            from: null
           , endTime: null
           , text: 'foobar'
           }
         , filters: {
-            inurl: 'foobar'
+            url: 'foobar'
           }
         });
       });
 
-      it('should handle startTime filter', function () {
-        var options = parseQuery('startTime:13-10-20');
+      it('should handle from filter', function () {
+        var options = parseQuery('from:13-10-20');
         expect(options).to.eql({
           settings: {
-            startTime: '13-10-20'
+            from: '13-10-20'
           , endTime: null
           , text: ''
           }
@@ -90,7 +90,7 @@ describe('query parser', function () {
         var options = parseQuery('endTime:13-10-20');
         expect(options).to.eql({
           settings: {
-            startTime: null
+            from: null
           , endTime: '13-10-20'
           , text: ''
           }
@@ -102,7 +102,7 @@ describe('query parser', function () {
         var options = parseQuery('foo:bar');
         expect(options).to.eql({
           settings: {
-            startTime: null
+            from: null
           , endTime: null
           , text: 'foo:bar'
           }
@@ -114,10 +114,10 @@ describe('query parser', function () {
     describe('multi filters', function () {
 
       it('should handle time filters', function () {
-        var options = parseQuery('endTime:13-10-20 startTime:1/1/1');
+        var options = parseQuery('endTime:13-10-20 from:1/1/1');
         expect(options).to.eql({
           settings: {
-            startTime: '1/1/1'
+            from: '1/1/1'
           , endTime: '13-10-20'
           , text: ''
           }
@@ -126,10 +126,10 @@ describe('query parser', function () {
       });
 
       it('should handle time filters and site', function () {
-        var options = parseQuery('endTime:13-10-20 startTime:1/1/1 site:wat.com');
+        var options = parseQuery('endTime:13-10-20 from:1/1/1 site:wat.com');
         expect(options).to.eql({
           settings: {
-            startTime: '1/1/1'
+            from: '1/1/1'
           , endTime: '13-10-20'
           , text: 'wat.com'
           }
@@ -140,16 +140,16 @@ describe('query parser', function () {
       });
 
       it('should handle time filters and site', function () {
-        var options = parseQuery('endTime:13-10-20 startTime:1/1/1 site:wat.com inurl:shitmang');
+        var options = parseQuery('endTime:13-10-20 from:1/1/1 site:wat.com url:shitmang');
         expect(options).to.eql({
           settings: {
-            startTime: '1/1/1'
+            from: '1/1/1'
           , endTime: '13-10-20'
           , text: 'wat.com shitmang'
           }
         , filters: {
             site: 'wat.com'
-          , inurl: 'shitmang'
+          , url: 'shitmang'
           }
         });
       });
@@ -161,10 +161,10 @@ describe('query parser', function () {
   describe('plain text + filters', function () {
 
     it('should handle time filters and text', function () {
-      var options = parseQuery('endTime:13-10-20 startTime:1/1/1 shitmang');
+      var options = parseQuery('endTime:13-10-20 from:1/1/1 shitmang');
       expect(options).to.eql({
         settings: {
-          startTime: '1/1/1'
+          from: '1/1/1'
         , endTime: '13-10-20'
         , text: 'shitmang'
         }
@@ -173,30 +173,30 @@ describe('query parser', function () {
       });
     });
 
-    it('should handle inurl + text', function () {
-      var options = parseQuery('inurl:hah shitmang');
+    it('should handle url + text', function () {
+      var options = parseQuery('url:hah shitmang');
       expect(options).to.eql({
         settings: {
-          startTime: null
+          from: null
         , endTime: null
         , text: 'hah shitmang'
         }
       , filters: {
-          inurl: 'hah'
+          url: 'hah'
         }
       });
     });
 
-    it('should handle inurl + ignored filter', function () {
-      var options = parseQuery('inurl:hah shit:mang');
+    it('should handle url + ignored filter', function () {
+      var options = parseQuery('url:hah shit:mang');
       expect(options).to.eql({
         settings: {
-          startTime: null
+          from: null
         , endTime: null
         , text: 'hah shit:mang'
         }
       , filters: {
-          inurl: 'hah'
+          url: 'hah'
         }
       });
 

@@ -24,7 +24,7 @@ If you are the kind of person spends a lot of time on the web, sooner or later y
 
 ## Example:
 I remember reading a NY times article about coffee:
-site:nytimes.com intitle:coffee
+site:nytimes.com title:coffee
 
 
 ## Short comings

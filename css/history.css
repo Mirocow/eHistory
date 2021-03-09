@@ -73,7 +73,6 @@ header {
     position: absolute;
     right: 5px;
     top: 12px;
-    background: url(arrow_down.png);
     cursor: pointer;
     opacity: 0.2;
     transition: opacity 0.25s linear;
@@ -157,10 +156,18 @@ header .logo {
     padding-left: 30px;
     float: left;
     position: relative;
-    width: 200px;
 }
 
 .top-bar > * {
+    float:right;
+}
+
+.top-bar-settings {
+    margin: 0;
+    position: relative;
+}
+
+.top-bar-settings > * {
     float:right;
 }
 
@@ -207,23 +214,6 @@ header .logo {
     border-color: rgb(77, 144, 254);
 }
 
-.prev-page .img, .next-page .img {
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    transition: opacity 0.25s linear;
-}
-.prev-page .img {
-    background: url(prev.png);
-}
-.next-page .img {
-    background: url(next.png)
-}
-.prev-page:hover .img, .next-page:hover .img {
-    opacity: 1;
-}
 .prev-page:hover:not([disabled]),.next-page:hover:not([disabled]) {
     border: 1px solid black;
 }
@@ -330,7 +320,6 @@ header .logo {
     width: 16px;
     height: 16px;
     display: inline-block;
-    background: url(arrow_down.png);
     -webkit-transform: scale(0.6);
     margin-left: -1px;
     margin-top: -1px;
@@ -481,7 +470,6 @@ menu button:hover {
 }
 
 .dropdown.delete .trash {
-    background-image: url(trash.png);
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
@@ -509,4 +497,15 @@ menu button:hover {
     position: absolute;
     right: 6px;
     top: 38px;
+}
+
+.top-bar.settings span{
+    font-size: 1.2em;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    -webkit-user-select: initial;
+}
+
+.test {
+    background-color: #00cc00;
 }
